@@ -6,7 +6,7 @@ from app.core.security import hash_password,verify_password,create_access_token
 from app import models,schemas
 
 
-def register_user(user_data:UserCreate,db:Session):
+def register_user(user_data:schemas.user_schema.UserCreate,db:Session):
     existing_user = db.query(models.User).filter(models.User.email == user_data.email).first()
     if existing_user:
         raise HTTPException(status_code=400,detail="Email already registered")
