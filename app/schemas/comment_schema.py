@@ -8,6 +8,9 @@ class CommentBase(BaseModel):
 class CommentCreate(CommentBase):
     post_id:int
 
+class CommentUpdate(BaseModel):
+    content: str | None = None
+
 class CommentResponse(CommentBase):
     id:int
     post_id:int
