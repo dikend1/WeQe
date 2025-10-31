@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from app import models,schemas
 from fastapi import HTTPException
 
-def create_post(db:Session,post_data:schemas.UserCreate,user_id:int):
-    post = models.User(**post_data.dict(),ownew_id = user_id)
+def create_post(db:Session,post_data:schemas.PostCreate,user_id:int):
+    post = models.Post(**post_data.dict(),owner_id = user_id)
     db.add(post)
     db.commit()
     db.refresh(post)
@@ -30,10 +30,10 @@ def update_post(db:Session,post_id:int,post_data:schemas.PostUpdate,user_id:int)
     return post
 
 def delete_post(db:Session,post_id:int,user_id:int):
-    post = db.query(models.Post).filter(models.Post.id == post_id, models.Post.owner_id == user_id)
+    post = db.query(models.Post).filter(models.Post.id == post_id, models.Post.owner_id == user_id).first()
     if not post:
         return None
     db.delete(post)
     db.commit()
-    return post
+    return {"message": "Task deleted"}
 

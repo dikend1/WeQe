@@ -29,8 +29,8 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
     return user
 
 @router.post("/",response_model=PostResponse)
-def create_post(post_id: int,db:Session = Depends(get_db),current_user = Depends(get_current_user)):
-    return post_service.create_post(db,post_id,current_user.id)
+def create_post(post_data:PostCreate,db:Session = Depends(get_db),current_user = Depends(get_current_user)):
+    return post_service.create_post(db,post_data,current_user.id)
 
 @router.get("/",response_model=list[PostResponse])
 def get_posts(db:Session = Depends(get_db)):
