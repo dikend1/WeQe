@@ -8,6 +8,11 @@ class PostBase(BaseModel):
 class PostCreate(PostBase):
     pass
 
+class PostUpdate(BaseModel):
+    title: str | None = None
+    content: str | None = None
+    
+
 class PostResponse(PostBase):
     id:int
     owner_id: int
